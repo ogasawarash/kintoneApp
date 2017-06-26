@@ -3,7 +3,6 @@
 
   var events = [
     'app.record.create.show',
-    'app.record.edit.show',
   ];
   kintone.events.on(events, function(event) {
     var record = event.record;
