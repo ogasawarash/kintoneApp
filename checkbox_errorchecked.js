@@ -3,7 +3,6 @@
 
   function cancelSave(event) {
     var record = event.record;
-    var noError = event.error;
     var check = [
       '利用PCが、家族と共用しない自分専用のPCになっていること やむを得ず利用予定PCを家族と共用する場合、業務利用用にアカウントを分けられていること',
       '利用予定PCのアカウントには、パスワードが設定されていること',
