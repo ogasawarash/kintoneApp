@@ -36,7 +36,7 @@
     return putRecords;
   }
 
-  kintone.events.on(['app.record.index.show'], function(event) {
+  kintone.events.on(['app.record.edit.submit', 'app.record.index.edit.submit'], function(event) {
     kintone.api(kintone.api.url('/k/v1/records', true), 'GET', masterParam, function(resp) {
       var records = resp.records;
       console.log(records);
