@@ -42,6 +42,7 @@
     // レコードの一括取得(100件まで)
     //var recordsEvent = event.record;
     var records = event.records;
+    //console.log(event);
     for(var i = 0; i < 5; i++){
     kintone.api(
       kintone.api.url('/k/v1/records', true),
