@@ -19,6 +19,7 @@
           }
         }
       };
+      //console.log(putRecords[i]);
     }
     return putRecords;
   }
@@ -37,20 +38,40 @@
   }
 
   // 保存実行時イベント
-  kintone.events.on(['app.record.edit.submit', 'app.record.index.edit.submit'], function(event) {
+  kintone.events.on(['app.record.index.show', 'app.record.edit.submit', 'app.record.index.edit.submit'], function(event) {
     // レコードの一括取得(100件まで)
-    kintone.api(
-      kintone.api.url('/k/v1/records', true),
-      'GET', {
-        app: updateAppId,
-        query: 'lookup = ' + event.record['レコード番号'].value
-      },
-      function(resp) {
-        var records = resp.records;
-
-        // ルックアップの更新
-        updateLookup(updateAppId, createPutRecords(records));
+    //var recordsEvent = event.record;
+    console.log(event);
+    if (event.type === 'app.record.index.show') {
+      for (var i = 0; i < event.records.length; i++) {
+        kintone.api(
+          kintone.api.url('/k/v1/records', true),
+          'GET', {
+            app: updateAppId,
+            query: 'lookup = ' + event.records[i]["レコード番号"].value
+          },
+          function(resp) {
+            var records = resp.records;
+            //console.log(records);
+            // ルックアップの更新
+            updateLookup(updateAppId, createPutRecords(records));
+          }
+        );
       }
-    );
+    } else {
+      kintone.api(
+        kintone.api.url('/k/v1/records', true),
+        'GET', {
+          app: updateAppId,
+          query: 'lookup = ' + event.record['レコード番号'].value
+        },
+        function(resp) {
+          var records = resp.records;
+          //console.log(resp);
+          // ルックアップの更新
+          updateLookup(updateAppId, createPutRecords(records));
+        }
+      );
+    }
   });
 })();
